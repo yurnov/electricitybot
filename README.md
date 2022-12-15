@@ -4,6 +4,8 @@ Bot that will send telegram message in case of electricity state was changed.
 ![_](_.png)
 
 ## How to install:
+Running in Docker is recommened (please find steps below). Anyway, if you want to run without container, please follow:
+
 1. Install python > 3.10
 2. Install `make` and `nohup`
 3. Install poetry `pip install poetry`
@@ -14,8 +16,7 @@ Bot that will send telegram message in case of electricity state was changed.
 Bot will ping provided IP adress specified in `IP_TO_CHECK` variable. In case if there will be no response for 4 ping requests in a row, bot will send message about power outage and vice versa.
 
 ## How to use in Docker
-1. build docker image with `docker build . -t f1ashhimself/electricitybot`
-2. start docker container with `docker run -h electricitybot --restart unless-stopped -e API_TOKEN=${API_TOKEN} -e CHAT_ID=${CHAT_ID} -e IP_TO_CHECK=${IP_TO_CHECK} -d --name electricitybot f1ashhimself/electricitybot`
+Run docker container with `docker run -h electricitybot --restart unless-stopped -e API_TOKEN=${API_TOKEN} -e CHAT_ID=${CHAT_ID} -e IP_TO_CHECK=${IP_TO_CHECK} -d --name electricitybot ghcr.io/yurnov/electricitybot:latest`
 Do not forget to create enviroment variables with `API_TOKEN`, `CHAT_ID` and `IP_TO_CHECK` prior run.
 
 ## Using with Topic in Group chats
