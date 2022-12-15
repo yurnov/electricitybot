@@ -67,7 +67,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          load: true
           push: true
           platforms: linux/arm64
           no-cache: true
