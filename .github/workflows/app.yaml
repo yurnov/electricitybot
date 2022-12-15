@@ -49,9 +49,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image for test for pull request
+      - name: Build Docker image for test
         # build image for test but don't push to registry
-        if: github.ref != 'refs/heads/master'
+        if: github.ref != 'refs/heads/main'
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -61,9 +61,9 @@ jobs:
           no-cache: true
           tags: ghcr.io/yurnov/electricitybot:${{ github.sha }}
 
-      - name: Build Docker image and push to registry for push to main
+      - name: Build Docker image and push to registry
         # build image for test and push to registry
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v3
         with:
           context: .
