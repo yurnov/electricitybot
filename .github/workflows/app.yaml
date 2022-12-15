@@ -1,10 +1,12 @@
-name: Tests
+name: Tests build and push
 on: [push]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    permissions:
+      packages: write
 
     steps:
       - name: Check out repository code
@@ -17,7 +19,7 @@ jobs:
 
       - name: Install poetry
         run: |
-          pip install poetry==1.2.2
+          pip install poetry==1.1.15
 
       - name: Install dependencies
         run: |
@@ -49,25 +51,14 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image for test
-        # build image for test but don't push to registry
-        if: github.ref != 'refs/heads/main'
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          load: true
-          push: false
-          platforms: linux/arm64
-          no-cache: true
-          tags: ghcr.io/yurnov/electricitybot:${{ github.sha }}
-
       - name: Build Docker image and push to registry
-        # build image for test and push to registry
-        if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: true
+          # push to registry when merge to main
+          push: ${{ github.ref == 'refs/heads/main' }}
           platforms: linux/arm64
           no-cache: true
-          tags: ghcr.io/yurnov/electricitybot:latest
+          tags: 
+            - ghcr.io/yurnov/electricitybot:latest
+            - ghcr.io/yurnov/electricitybot:${{ github.sha }}
