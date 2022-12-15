@@ -4,8 +4,8 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
+    # permissions:
+    #   packages: write
 
     steps:
       - name: Check out repository code

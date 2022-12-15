@@ -1,9 +1,9 @@
 FROM python:3.11-slim
 
-LABEL org.opencontainers.image.source="https://github.com/F1ashhimself/electricitybot.git" \
+LABEL org.opencontainers.image.source="https://github.com/yurnov/electricitybot.git" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.title="electricitybot" \
-      org.opencontainers.image.description="Bot that will send telegram message in case of electricity state was changed"
+      org.opencontainers.image.description="Bot that will send telegram message in case of electricity state was changed."
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends iputils-ping && \
