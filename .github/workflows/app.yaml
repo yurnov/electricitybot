@@ -57,6 +57,5 @@ jobs:
           context: .
           # push to registry when merge to main
           push: ${{ github.ref == 'refs/heads/main' }}
-          platforms: linux/arm64
           no-cache: true
           tags: ghcr.io/yurnov/electricitybot:latest, ghcr.io/yurnov/electricitybot:${{ github.sha }}
